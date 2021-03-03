@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+        <title>Password Generator</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+
+                <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+
+                    <title>Password Generator with JavaScript</title>
+
+                        <style>
+
+                                * {
+
+                                  margin: 0;
+
+                                    padding: 0;
+
+                                      box-sizing: border-box;
+
+                                      }
+
+                                      body {
+
+                                        height: 100vh;
+
+                                          width: 100vw;
+
+                                            display: flex;
+
+                                              align-items: center;
+
+                                                justify-content: center;
+
+                                                  flex-direction: column;
+
+                                                    font-family: 'Oswald', sans-serif;
+
+                                                      background-color: #9dc5bb;
+
+                                                      }
+
+                                                      .container {
+
+                                                        padding: 1rem 1.5rem;
+
+                                                          border: 1px solid black;
+
+                                                            width: 350px;
+
+                                                              background-color: #bcf4f5;
+
+                                                              }
+
+                                                              h2 {
+
+                                                                text-align: center;
+
+                                                                  padding: 15px 0;
+
+                                                                  }
+
+                                                                  /* input[type='checkbox'] {
+
+                                                                    margin-right: 0;
+
+                                                                    } */
+
+                                                                    /* input[type='text'] {
+
+                                                                      height: 100%;
+
+                                                                        width: 100%;
+
+                                                                        } */
+
+                                                                        .option {
+
+                                                                          display: flex;
+
+                                                                            justify-content: space-between;
+
+                                                                              padding: 4px;
+
+                                                                              }
+
+                                                                              .result__container {
+
+                                                                                height: 50px;
+
+                                                                                  width: 100%;
+
+                                                                                    display: flex;
+
+                                                                                      justify-content: space-between;
+
+                                                                                        align-items: center;
+
+                                                                                          border: 1px solid black;
+
+                                                                                            padding: 0 5px;
+
+                                                                                            }
+
+                                                                                            .result-container #result {
+
+                                                                                              word-wrap: break-word;
+
+                                                                                                max-width: calc(100% - 40px);
+
+                                                                                                }
+
+                                                                                                .result__container #copy {
+
+                                                                                                  height: 40px;
+
+                                                                                                    width: 40px;
+
+                                                                                                      background-color: #5bc0be;
+
+                                                                                                        color: #ffffff;
+
+                                                                                                          border: none;
+
+                                                                                                            cursor: pointer;
+
+                                                                                                              outline: none;
+
+                                                                                                              }
+
+                                                                                                              .result__container #copy:hover {
+
+                                                                                                                background-color: #1c2541;
+
+                                                                                                                  color: #ffffff;
+
+                                                                                                                  }
+
+                                                                                                                  #generate {
+
+                                                                                                                    height: 40px;
+
+                                                                                                                      width: 100%;
+
+                                                                                                                        border-radius: 10px;
+
+                                                                                                                          border: none;
+
+                                                                                                                            background-color: #0b132b;
+
+                                                                                                                              color: #ffffff;
+
+                                                                                                                                font-size: 15px;
+
+                                                                                                                                  font-weight: bold;
+
+                                                                                                                                    cursor: pointer;
+
+                                                                                                                                      outline: none;
+
+                                                                                                                                      }
+
+                                                                                                                                      #generate:hover {
+
+                                                                                                                                        background-color: #5bc0be;
+
+                                                                                                                                          color: #ffffff;
+
+                                                                                                                                          }
+
+                                                                                                                                              </style>
+
+                                                                                                                                              </head>
+
+                                                                                                                                              <body>
+
+                                                                                                                                                  <form id="passwordGeneratorForm">
+
+                                                                                                                                                          <div class="container">
+
+                                                                                                                                                                      <h2>Password Generator</h2>
+
+                                                                                                                                                                                  <div class="result__container">
+
+                                                                                                                                                                                                  <span id="result"></span>
+
+                                                                                                                                                                                                                  <button id="copy">Copy</button>
+
+                                                                                                                                                                                                                              </div>
+
+                                                                                                                                                                                                                                          <div class="options">
+
+                                                                                                                                                                                                                                                          <div class="option">
+
+                                                                                                                                                                                                                                                                              <label>Length</label>
+
+                                                                                                                                                                                                                                                                                                  <input type="number" id="length" min="4" max="20" value="10">
+
+                                                                                                                                                                                                                                                                                                                  </div>
+
+                                                                                                                                                                                                                                                                                                                                  <div class="option">
+
+                                                                                                                                                                                                                                                                                                                                                      <label>Include Uppercase</label>
+
+                                                                                                                                                                                                                                                                                                                                                                          <input type="checkbox" id="uppercase" checked>
+
+                                                                                                                                                                                                                                                                                                                                                                                          </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                          <div class="option">
+
+                                                                                                                                                                                                                                                                                                                                                                                                                              <label>Include Numbers</label>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                  <input type="checkbox" id="numbers" checked>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <div class="option">
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <label>Include Symbols</label>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <input type="checkbox" id="symbols" checked>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <button class="btn" id="generate" type="submit">Generate Password</button>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </form>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <script>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          // Getting the DOM Eleements
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const resultDOM = document.getElementById('result');
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const copybtnDOM = document.getElementById('copy');
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const lengthDOM = document.getElementById('length');
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const uppercaseDOM = document.getElementById('uppercase');
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const numbersDOM = document.getElementById('numbers');
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const symbolsDOM = document.getElementById('symbols');
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const generatebtn = document.getElementById('generate');
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const form = document.getElementById('passwordGeneratorForm');
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          // Generating Character Codes
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const UPPERCASE_CODES = arrayFromLowToHigh(65, 90);
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const LOWERCASE_CODES = arrayFromLowToHigh(97, 122);
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const NUMBER_CODES = arrayFromLowToHigh(48, 57);
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const SYMBOL_CODES = arrayFromLowToHigh(33, 47)
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .concat(arrayFromLowToHigh(58, 64))
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              .concat(arrayFromLowToHigh(91, 96))
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .concat(arrayFromLowToHigh(123, 126));
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                // Copy Password
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                copybtnDOM.addEventListener('click', () => {
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  const textarea = document.createElement('textarea');
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    const passwordToCopy = resultDOM.innerText;
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      // Edge Case when Password is Empty
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        if (!passwordToCopy) return;
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          // Copy Functionality
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            textarea.value = passwordToCopy;
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              document.body.appendChild(textarea);
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                textarea.select();
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  document.execCommand('copy');
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    textarea.remove();
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      alert('Password Copied to Clipboard');
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      });
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      // Checking the options that are selected and setting the password
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      form.addEventListener('submit', (e) => {
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        e.preventDefault();
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const characterAmount = lengthDOM.value;
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            const includeUppercase = uppercaseDOM.checked;
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              const includeNumbers = numbersDOM.checked;
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                const includeSymbols = symbolsDOM.checked;
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  const password = generatePassword(
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      characterAmount,
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          includeUppercase,
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              includeNumbers,
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  includeSymbols
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    );
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      resultDOM.innerText = password;
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      });
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      // Password Generating Function
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      let generatePassword = (
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        characterAmount,
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          includeUppercase,
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            includeNumbers,
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              includeSymbols
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ) => {
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                let charCodes = LOWERCASE_CODES;
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  if (includeUppercase) charCodes = charCodes.concat(UPPERCASE_CODES);
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    if (includeSymbols) charCodes = charCodes.concat(SYMBOL_CODES);
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      if (includeNumbers) charCodes = charCodes.concat(NUMBER_CODES);
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        const passwordCharacters = [];
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          for (let i = 0; i < characterAmount; i++) {
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              const characterCode =
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    charCodes[Math.floor(Math.random() * charCodes.length)];
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        passwordCharacters.push(String.fromCharCode(characterCode));
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            return passwordCharacters.join('');
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            };
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            // Character Code Generating Function
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            function arrayFromLowToHigh(low, high) {
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              const array = [];
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                for (let i = low; i <= high; i++) {
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    array.push(i);
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        return array;
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </script>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </body>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </html>
